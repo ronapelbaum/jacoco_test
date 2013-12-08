@@ -1,8 +1,8 @@
 <%@ page import="java.util.Date" %>
-<%@ page import="ron.server.MyMessage" %>
+<%@ page import="ron.server.message.HelloMessage" %>
 
 <%
-    ron.server.MyMessage my = new ron.server.MyMessage("jsp");
+    HelloMessage my = new HelloMessage("jsp");
 %>
 <html>
 <body>

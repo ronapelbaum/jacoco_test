@@ -8,7 +8,7 @@
         <servlet-name>MyServlet</servlet-name>
         <display-name>MyServlet1</display-name>
         <description>this is my servlet</description>
-        <servlet-class>ron.server.MyMessageServlet</servlet-class>
+        <servlet-class>ron.server.MyServlet</servlet-class>
         <init-param>
             <param-name>myName</param-name>
             <param-value>"ron"</param-value>
