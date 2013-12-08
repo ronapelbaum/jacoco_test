@@ -1,6 +1,7 @@
 package ron.server;
 
-import ron.server.message.HelloMessage;
+
+import ron.message.HelloMessage;
 
 import java.io.IOException;
 import java.io.PrintWriter;

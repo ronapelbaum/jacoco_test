@@ -1,4 +1,4 @@
-package ron.server.message;
+package ron.message;
 
 /**
  * Created with IntelliJ IDEA.

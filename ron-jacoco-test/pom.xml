@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>ron.jacoco</groupId>
-        <artifactId>ron-jacoco</artifactId>
+        <artifactId>ron-jacoco-main</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -15,4 +15,11 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>ron.jacoco</groupId>
+            <artifactId>ron-jacoco-message</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

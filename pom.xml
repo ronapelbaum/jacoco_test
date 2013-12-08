@@ -2,15 +2,89 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ron.jacoco</groupId>
-    <artifactId>ron-jacoco</artifactId>
+    <artifactId>ron-jacoco-main</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-    <name>ron jacoco - main pom</name>
+    <!--<name>ron jacoco - main pom</name>-->
     <url>http://maven.apache.org</url>
     <modules>
         <module>ron-jacoco-server</module>
         <module>ron-jacoco-test</module>
+        <module>ron-jacoco-message</module>
     </modules>
 
+    <properties>
+        <!--jacoco properties-->
+        <jacoco.version>0.6.3.201306030806</jacoco.version>
+        <!--
+        <jacoco.data.file>${basedir}/target/surefire-reports/jacoco-unit.exec</jacoco.data.file>
+        <jacoco.dest.file>${basedir}/target/surefire-reports/jacoco-unit.exec</jacoco.dest.file>
+         -->
+    </properties>
+     <dependencyManagement>
+         <dependencies>
+             <dependency>
+                 <groupId>junit</groupId>
+                 <artifactId>junit</artifactId>
+                 <version>4.8.2</version>
+                 <scope>test</scope>
+             </dependency>
+             <dependency>
+                 <groupId>javax.servlet</groupId>
+                 <artifactId>javax.servlet-api</artifactId>
+                 <version>3.0.1</version>
+             </dependency>
+         </dependencies>
+     </dependencyManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!--jacoco plugin-->
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.version}</version>
+                    <!--
+                    <configuration>
+                          <destFile>${jacoco.dest.file}</destFile>
+                          <dataFile>${jacoco.data.file}</dataFile>
+                      </configuration>
+                      -->
+                    <executions>
+                        <execution>
+                            <!--preparing jacoco agent-->
+                            <id>default-prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                            <!--
+                            <configuration>
+                                <propertyName>jacoco_agent</propertyName>
+                            </configuration>
+                            -->
+                        </execution>
+                        <execution>
+                            <id>default-report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+
+                    </executions>
+                </plugin>
+            </plugins>
+            <!--
+           <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <argLine>${jacoco_agent}</argLine>
+                </configuration>
+            </plugin>
+            -->
+        </pluginManagement>
+    </build>
 </project>
