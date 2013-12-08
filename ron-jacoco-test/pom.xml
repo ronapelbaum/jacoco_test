@@ -6,13 +6,13 @@
 
     <parent>
         <groupId>ron.jacoco</groupId>
-        <artifactId>jacoco_test</artifactId>
+        <artifactId>ron-jacoco</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>ron.jacoco</groupId>
-    <artifactId>test</artifactId>
+    <artifactId>ron-jacoco-test</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-    
 </project>
