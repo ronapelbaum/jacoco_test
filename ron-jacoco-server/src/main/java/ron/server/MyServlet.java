@@ -20,9 +20,8 @@ public class MyServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        HelloMessage my = new HelloMessage(this.getClass().getName());
-        String message = my.getMessage();
+        HelloMessage my = new HelloMessage(request.getParameter("name"));
         PrintWriter out = response.getWriter();
-        out.println(message);
+        out.println(HTMLMessage.getHEMLMessage(my.getMessage()));
     }
 }

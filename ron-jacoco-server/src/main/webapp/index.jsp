@@ -1,19 +1,16 @@
 <%@ page import="java.util.Date" %>
-<%@ page import="ron.server.message.HelloMessage" %>
-
-<%
-    HelloMessage my = new HelloMessage("jsp");
-%>
 <html>
 <body>
-<h2>Hello World!</h2>
-
-<h3>Message: <%=my.getMessage()%>
-</h3>
-
 <p>
     Login Time: <%=new Date()%>
 </p>
-<a href="/app">app</a>
+<hr/>
+<form action="app" method="GET">
+    Name:
+    <label>
+        <input type="text" name="name">
+    </label>
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>
