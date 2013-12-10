@@ -8,7 +8,7 @@ package ron.message;
  * To change this template use File | Settings | File Templates.
  */
 public class HelloMessage {
-    private final String hello = "Hello ";
+    private final static String hello = "Hello ";
     private String name;
 
     public HelloMessage(String name) {

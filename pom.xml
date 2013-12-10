@@ -10,7 +10,6 @@
     <url>http://maven.apache.org</url>
     <modules>
         <module>ron-jacoco-server</module>
-        <module>ron-jacoco-test</module>
         <module>ron-jacoco-message</module>
     </modules>
 
@@ -54,7 +53,7 @@
                     <executions>
                         <execution>
                             <!--preparing jacoco agent-->
-                            <id>default-prepare-agent</id>
+                            <id>prepare-agent</id>
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>
@@ -65,7 +64,7 @@
                             -->
                         </execution>
                         <execution>
-                            <id>default-report</id>
+                            <id>report</id>
                             <phase>prepare-package</phase>
                             <goals>
                                 <goal>report</goal>

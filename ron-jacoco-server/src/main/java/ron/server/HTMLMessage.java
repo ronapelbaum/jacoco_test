@@ -8,6 +8,8 @@ package ron.server;
  * To change this template use File | Settings | File Templates.
  */
 public class HTMLMessage {
+    private HTMLMessage() {
+    }
 
     private static final String START = "<html><body><h2>";
     private static final String END = "</h2></body></html>";
