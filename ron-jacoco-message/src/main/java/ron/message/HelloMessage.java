@@ -22,4 +22,12 @@ public class HelloMessage {
     public int getNameLength() {
         return name.length();
     }
+
+    public void unit(){
+        System.out.println("--->>> HelloMessage.unit()");
+    }
+
+    public void integration(){
+        System.out.println("--->>> HelloMessage.integration()");
+    }
 }

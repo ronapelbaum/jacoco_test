@@ -1,4 +1,4 @@
-package server;
+package ron.server;
 
 import org.junit.Test;
 import ron.server.HTMLMessage;
@@ -20,5 +20,11 @@ public class HTMLMessageTest {
         assertTrue(htmlMessage.startsWith("<html>"));
         assertTrue(htmlMessage.endsWith("</html>"));
         assertTrue(htmlMessage.contains(msg));
+    }
+
+    @Test
+    public void testUnit() throws Exception {
+        HTMLMessage.unit();
+
     }
 }

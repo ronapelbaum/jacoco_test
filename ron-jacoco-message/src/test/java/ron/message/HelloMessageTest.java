@@ -30,9 +30,15 @@ public class HelloMessageTest {
 
     }
 
-    @Test
+   /* @Test
     public void testGetNameLength() throws Exception {
         assertTrue(helloMessage.getNameLength() == NAME1.length());
+
+    }*/
+
+    @Test
+    public void testUnit() throws Exception {
+        helloMessage.unit();
 
     }
 }
