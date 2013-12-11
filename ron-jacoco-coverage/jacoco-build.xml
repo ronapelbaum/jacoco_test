@@ -1,0 +1,68 @@
+<!--
+Helper for integration tests related ant tasks executed by
+the maven-ant-run plugin. See the pom.xml. The report task
+is made available by the target executed in the pom maven
+ant run plugin configuration.
+
+We want to check if jacoco.exec exists before attempting to
+generate the report. This is done nicely in an ant build.xml
+that is called via the pom configuration with an ant call.
+This way, a developer may build the project without actually
+running the tests.
+-->
+<project name="jacoco.helper" default="jacoco.report">
+
+    <target name="jacoco.report" depends="flag" if="exists">
+        <report>
+            <!--
+            <mkdir dir="${basedir}/target/coverage-report"/>
+            -->
+            <executiondata>
+                <file file="${project.build.directory}/jacoco.exec"/>
+                <!--
+                <fileset dir="${build.directory.ron-jacoco-message}">
+                    <include name="jacoco.exec" />
+                </fileset>
+                <fileset dir="${build.directory.ron-jacoco-server}">
+                    <include name="jacoco.exec" />
+                </fileset>
+                -->
+            </executiondata>
+            <structure name="Integration test coverage">
+                <group name="jacoco-coverage">
+                    <classfiles>
+                        <fileset dir="${project.build.directory}/classes"/>
+                        <!--
+
+                                                <fileset dir="${classes.directory.ron-jacoco-message}"/>
+                                                <fileset dir="${classes.directory.ron-jacoco-server}"/>
+                        -->
+                    </classfiles>
+                    <sourcefiles encoding="UTF-8">
+                        <fileset dir="${project.build.directory}/sources"/>
+
+                        <!--
+                                                <fileset dir="${sources.directory.ron-jacoco-message}"/>
+                                                <fileset dir="${sources.directory.ron-jacoco-server}"/>
+                        -->
+                        <!--
+                         <fileset dir="${generated-sources.directory.ron-jacoco-message}"></fileset>
+                        <fileset dir="${generated-sources.directory.ron-jacoco-server}"></fileset>
+                        -->
+
+                    </sourcefiles>
+                </group>
+            </structure>
+            <!--
+            <html destdir="${basedir}/target/coverage-report/html" />
+            <xml destfile="${basedir}/target/coverage-report/coverage-report.xml" />
+            <csv destfile="${basedir}/target/coverage-report/coverage-report.csv" />
+            -->
+        </report>
+    </target>
+
+    <target name="flag">
+        <available file="${project.build.directory}/jacoco.exec" property="exists"/>
+    </target>
+
+</project>

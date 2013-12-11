@@ -3,6 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ron.jacoco</groupId>
+            <artifactId>ron-jacoco-message</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ron.jacoco</groupId>
+            <artifactId>ron-jacoco-server</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <classifier>classes</classifier>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>ron.jacoco</groupId>
@@ -14,113 +33,97 @@
     <artifactId>ron-jacoco-coverage</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <build.directory.ron-jacoco-message>../ron-jacoco-message/target</build.directory.ron-jacoco-message>
-        <build.directory.ron-jacoco-server>../ron-jacoco-server/target</build.directory.ron-jacoco-server>
-
-        <classes.directory.ron-jacoco-message>../ron-jacoco-message/target/classes</classes.directory.ron-jacoco-message>
-        <classes.directory.ron-jacoco-server>../ron-jacoco-server/target/classes</classes.directory.ron-jacoco-server>
-
-        <sources.directory.ron-jacoco-message>../ron-jacoco-message/src/main/java</sources.directory.ron-jacoco-message>
-        <sources.directory.ron-jacoco-server>../ron-jacoco-server/src/main/java</sources.directory.ron-jacoco-server>
-
-        <generated-sources.directory.ron-jacoco-message>../ron-jacoco-message/target/generated-sources/annotations</generated-sources.directory.ron-jacoco-message>
-        <generated-sources.directory.ron-jacoco-server>../ron-jacoco-server/target/generated-sources/annotations</generated-sources.directory.ron-jacoco-server>
-    </properties>
-
-
-    <build>
-        <plugins>
-            <!-- Dependencies -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <!-- Copy the ant tasks jar. Needed for ts.jacoco.report-ant . -->
-                    <execution>
-                        <id>jacoco-dependency-ant</id>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <phase>process-test-resources</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.jacoco</groupId>
-                                    <artifactId>org.jacoco.ant</artifactId>
-                                    <version>${jacoco.version}</version>
-                                </artifactItem>
-                            </artifactItems>
-                            <stripVersion>true</stripVersion>
-                            <outputDirectory>${basedir}/target/jacoco-jars</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-            <!-- Ant plugin. -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <!-- Execute an ant task within maven -->
-                                <echo message="Generating JaCoCo Reports" />
-                                <taskdef name="report" classname="org.jacoco.ant.ReportTask">
-                                    <classpath path="${basedir}/target/jacoco-jars/org.jacoco.ant.jar" />
-                                </taskdef>
-                                <mkdir dir="${basedir}/target/coverage-report" />
-                                <report>
-                                    <executiondata>
-                                        <fileset dir="${build.directory.ron-jacoco-message}">
-                                            <include name="jacoco.exec" />
-                                        </fileset>
-                                        <fileset dir="${build.directory.ron-jacoco-server}">
-                                            <include name="jacoco.exec" />
-                                        </fileset>
-                                    </executiondata>
-                                    <structure name="jacoco-multi Coverage Project">
-                                        <group name="jacoco-multi">
-                                            <classfiles>
-                                                <fileset dir="${classes.directory.ron-jacoco-message}" />
-                                                <fileset dir="${classes.directory.ron-jacoco-server}" />
-                                            </classfiles>
-                                            <sourcefiles encoding="UTF-8">
-                                                <fileset dir="${sources.directory.ron-jacoco-message}" />
-                                                <fileset dir="${sources.directory.ron-jacoco-server}"></fileset>
-
-                                                <!-- <fileset dir="${generated-sources.directory.ron-jacoco-message}"></fileset>
-                                                <fileset
-                                                    dir="${generated-sources.directory.ron-jacoco-server}"></fileset> -->
-                                            </sourcefiles>
-                                        </group>
-                                    </structure>
-                                    <html destdir="${basedir}/target/coverage-report/html" />
-                                    <xml destfile="${basedir}/target/coverage-report/coverage-report.xml" />
-                                    <csv destfile="${basedir}/target/coverage-report/coverage-report.csv" />
-                                </report>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
+    <profiles>
+        <profile>
+            <id>jacIntCov</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                    </plugin>
+                    <plugin>
                         <groupId>org.jacoco</groupId>
-                        <artifactId>org.jacoco.ant</artifactId>
-                        <version>${jacoco.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
 
-        </plugins>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.8</version>
+                    <executions>
+                        <execution>
+                            <id>unpack-classes</id>
+                            <phase>generate-resources</phase>
+                            <configuration>
+                                <includeGroupIds>ron</includeGroupIds>
+                                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                            </configuration>
+                            <goals>
+                                <goal>unpack-dependencies</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>unpack-sources</id>
+                            <phase>generate-resources</phase>
+                            <configuration>
+                                <classifier>sources</classifier>
+                                <includeGroupIds>ron</includeGroupIds>
+                                <outputDirectory>${project.build.directory}/sources</outputDirectory>
+                            </configuration>
+                            <goals>
+                                <goal>unpack-dependencies</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                    <executions>
+                        <execution>
+                            <id>default-cli</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <taskdef name="report" classname="org.jacoco.ant.ReportTask"
+                                             classpathref="maven.plugin.classpath"/>
+                                    <ant antfile="${basedir}/jacoco-build.xml"/>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.jacoco</groupId>
+                            <artifactId>org.jacoco.ant</artifactId>
+                            <version>${jacoco.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
