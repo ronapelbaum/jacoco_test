@@ -30,4 +30,8 @@ public class HelloMessage {
     public void integration(){
         System.out.println("--->>> HelloMessage.integration()");
     }
+
+    public static void invokedByHTMLMessage() {
+        System.out.println("--->>> HelloMessage.invokedByHTMLMessage()");
+    }
 }

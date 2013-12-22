@@ -1,5 +1,7 @@
 package ron.server;
 
+import ron.message.HelloMessage;
+
 /**
  * Created with IntelliJ IDEA.
  * User: apelbaur
@@ -26,5 +28,11 @@ public class HTMLMessage {
 
     public static String foo(){
         return "foo";
+    }
+
+    public static void invoke(){
+        System.out.println("--->>> HTMLMessage.invoke()");
+        HelloMessage.invokedByHTMLMessage();
+
     }
 }

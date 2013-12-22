@@ -33,4 +33,9 @@ public class MyIntegrationTest {
 
         HTMLMessage.integration();
     }
+
+    @Test
+    public void testInvoke() throws Exception{
+        HTMLMessage.invoke();
+    }
 }
