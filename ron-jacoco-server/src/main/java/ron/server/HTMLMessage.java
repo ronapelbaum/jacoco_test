@@ -23,4 +23,8 @@ public class HTMLMessage {
     public static void integration(){
         System.out.println("--->>> HTMLMessage.integration()");
     }
+
+    public static String foo(){
+        return "foo";
+    }
 }

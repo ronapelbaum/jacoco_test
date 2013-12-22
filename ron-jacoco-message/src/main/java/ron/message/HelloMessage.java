@@ -9,7 +9,7 @@ package ron.message;
  */
 public class HelloMessage {
     private final static String hello = "Hello ";
-    private String name;
+    protected String name;
 
     public HelloMessage(String name) {
         this.name = name;

@@ -23,6 +23,11 @@
         </dependency>
     </dependencies>
 
+    <properties>
+        <message.basedir>${project.basedir}\..\ron-jacoco-message</message.basedir>
+        <server.basedir>${project.basedir}\..\ron-jacoco-server</server.basedir>
+    </properties>
+
     <parent>
         <groupId>ron.jacoco</groupId>
         <artifactId>ron-jacoco-main</artifactId>
@@ -39,22 +44,34 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
-                    <plugin>
+                        <!--use ant plugin to run jacoco report-->
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>default-cli</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <taskdef name="report" classname="org.jacoco.ant.ReportTask"
+                                                 classpathref="maven.plugin.classpath"/>
+                                        <ant antfile="${basedir}/jacoco-build.xml"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.jacoco</groupId>
+                                <artifactId>org.jacoco.ant</artifactId>
+                                <version>${jacoco.version}</version>
+                            </dependency>
+                        </dependencies>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                    </plugin>
-
                 </plugins>
             </build>
         </profile>
@@ -62,67 +79,11 @@
     <build>
         <pluginManagement>
             <plugins>
-
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.8</version>
-                    <executions>
-                        <execution>
-                            <id>unpack-classes</id>
-                            <phase>generate-resources</phase>
-                            <configuration>
-                                <includeGroupIds>ron</includeGroupIds>
-                                <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                            </configuration>
-                            <goals>
-                                <goal>unpack-dependencies</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>unpack-sources</id>
-                            <phase>generate-resources</phase>
-                            <configuration>
-                                <classifier>sources</classifier>
-                                <includeGroupIds>ron</includeGroupIds>
-                                <outputDirectory>${project.build.directory}/sources</outputDirectory>
-                            </configuration>
-                            <goals>
-                                <goal>unpack-dependencies</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <!--override jacoco executions-->
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
                 </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.7</version>
-                    <executions>
-                        <execution>
-                            <id>default-cli</id>
-                            <phase>post-integration-test</phase>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                            <configuration>
-                                <target>
-                                    <taskdef name="report" classname="org.jacoco.ant.ReportTask"
-                                             classpathref="maven.plugin.classpath"/>
-                                    <ant antfile="${basedir}/jacoco-build.xml"/>
-                                </target>
-                            </configuration>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.jacoco</groupId>
-                            <artifactId>org.jacoco.ant</artifactId>
-                            <version>${jacoco.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
             </plugins>
         </pluginManagement>
     </build>

@@ -12,11 +12,12 @@ running the tests.
 -->
 <project name="jacoco.helper" default="jacoco.report">
 
-    <target name="jacoco.report" depends="flag" if="exists">
+    <target name="jacoco.report" >
+        <echo message="--->>> Generating JaCoCo Reports" />
+        <echo message="message.basedir: ${message.basedir}"/>
+        <echo message="server.basedir: ${server.basedir}"/>
+        <mkdir dir="${project.build.directory}/coverage-report"/>
         <report>
-            <!--
-            <mkdir dir="${basedir}/target/coverage-report"/>
-            -->
             <executiondata>
                 <file file="${project.build.directory}/jacoco.exec"/>
                 <!--
@@ -31,33 +32,18 @@ running the tests.
             <structure name="Integration test coverage">
                 <group name="jacoco-coverage">
                     <classfiles>
-                        <fileset dir="${project.build.directory}/classes"/>
-                        <!--
-
-                                                <fileset dir="${classes.directory.ron-jacoco-message}"/>
-                                                <fileset dir="${classes.directory.ron-jacoco-server}"/>
-                        -->
+                        <fileset dir="${message.basedir}/target/generated-classes"/>
+                        <fileset dir="${server.basedir}/target/generated-classes"/>
                     </classfiles>
                     <sourcefiles encoding="UTF-8">
-                        <fileset dir="${project.build.directory}/sources"/>
-
-                        <!--
-                                                <fileset dir="${sources.directory.ron-jacoco-message}"/>
-                                                <fileset dir="${sources.directory.ron-jacoco-server}"/>
-                        -->
-                        <!--
-                         <fileset dir="${generated-sources.directory.ron-jacoco-message}"></fileset>
-                        <fileset dir="${generated-sources.directory.ron-jacoco-server}"></fileset>
-                        -->
-
+                        <fileset dir="${message.basedir}/src/main/java"/>
+                        <fileset dir="${server.basedir}/src/main/java"/>
                     </sourcefiles>
                 </group>
             </structure>
-            <!--
             <html destdir="${basedir}/target/coverage-report/html" />
             <xml destfile="${basedir}/target/coverage-report/coverage-report.xml" />
             <csv destfile="${basedir}/target/coverage-report/coverage-report.csv" />
-            -->
         </report>
     </target>
 
