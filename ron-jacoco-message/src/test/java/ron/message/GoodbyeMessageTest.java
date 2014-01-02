@@ -7,17 +7,18 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by apelbaur on 1/2/14.
  */
-public class GoodbyeMessageTest extends HelloMessageTest {
+public class GoodbyeMessageTest extends TestCase {
 
+    public static final String NAME = "bob";
     private GoodbyeMessage goodbyeMessage;
 
     @Override
     public void setUp() throws Exception {
-        message = "Goodbye ";
-        goodbyeMessage = new GoodbyeMessage(NAME1);
+        goodbyeMessage = new GoodbyeMessage(NAME);
     }
 
     public void testGetMessage() throws Exception {
-        assertEquals(goodbyeMessage.getMessage(), message + NAME1);
+        String message = "Goodbye ";
+        assertEquals(goodbyeMessage.getMessage(), message + NAME);
     }
 }

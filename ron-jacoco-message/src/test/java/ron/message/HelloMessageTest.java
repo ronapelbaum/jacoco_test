@@ -15,7 +15,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class HelloMessageTest {
 
-    protected String message = "Hello ";
     private HelloMessage helloMessage;
     public static final String NAME1 = "alexander";
 
@@ -26,7 +25,7 @@ public class HelloMessageTest {
 
     @Test
     public void testGetMessage() throws Exception {
-        assertEquals(helloMessage.getMessage(), message + NAME1);
+        assertEquals(helloMessage.getMessage(), "Hello " + NAME1);
 
     }
 
