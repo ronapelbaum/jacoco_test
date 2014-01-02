@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class HelloMessageTest {
 
-    private final String message = "Hello ";
+    protected String message = "Hello ";
     private HelloMessage helloMessage;
     public static final String NAME1 = "alexander";
 
@@ -24,17 +24,17 @@ public class HelloMessageTest {
         helloMessage = new HelloMessage(NAME1);
     }
 
-   /* @Test
+    @Test
     public void testGetMessage() throws Exception {
         assertEquals(helloMessage.getMessage(), message + NAME1);
 
-    }*/
+    }
 
-   /* @Test
+    @Test
     public void testGetNameLength() throws Exception {
         assertTrue(helloMessage.getNameLength() == NAME1.length());
 
-    }*/
+    }
 
     @Test
     public void testUnit() throws Exception {

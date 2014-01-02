@@ -29,13 +29,13 @@ public class MyIntegrationTest {
     @Test
     public void testIntegration() throws Exception {
         HelloMessage hm  = new HelloMessage("a");
-//        hm.integration();
+        hm.integration();
 
-//        HTMLMessage.integration();
+        HTMLMessage.integration();
     }
 
     @Test
     public void testInvoke() throws Exception{
-//        HTMLMessage.invoke();
+        HTMLMessage.invoke();
     }
 }
