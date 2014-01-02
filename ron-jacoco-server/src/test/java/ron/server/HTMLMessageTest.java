@@ -27,4 +27,8 @@ public class HTMLMessageTest {
         HTMLMessage.unit();
 
     }
+    @Test
+    public void testFoo() throws Exception{
+        assertTrue("foo".equals(HTMLMessage.foo()));
+    }
 }
