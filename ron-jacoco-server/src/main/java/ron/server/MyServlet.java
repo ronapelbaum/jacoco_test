@@ -20,8 +20,13 @@ public class MyServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        System.out.println("ron.server.MyServlet.doGet: name= " + request.getParameter("name"));
         HelloMessage my = new HelloMessage(request.getParameter("name"));
+        String message = my.getMessage();
+        if (request.getParameterValues("additional") != null && request.getParameterValues("additional").length > 0 && "length".equals(request.getParameterValues("additional")[0])) {
+            message += "length= " + my.getNameLength();
+        }
         PrintWriter out = response.getWriter();
-        out.println(HTMLMessage.getHEMLMessage(my.getMessage()));
+        out.println(HTMLMessage.getHEMLMessage(message));
     }
 }
